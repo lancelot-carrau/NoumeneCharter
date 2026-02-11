@@ -1,152 +1,204 @@
-/* ── Hero Section ─────────────────────────────────────── */
+/* ── Hero ─────────────────────────────────────────────── */
 .hero {
   position: relative;
   width: 100%;
   height: 100vh;
-  min-height: 600px;
+  min-height: 700px;
+  background: var(--c-dark);
   overflow: hidden;
+  display: flex;
+  align-items: flex-end;
 }
 
-.hero__image {
+.hero__bg {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: brightness(0.55);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.1);
+    transform: scale(1.05);
+    animation: heroZoom 14s ease-in-out infinite alternate;
+  }
 }
 
-/* Polynesian-inspired decorative border – bottom wave */
-.hero__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(13, 27, 42, 0.15) 0%,
-    rgba(13, 27, 42, 0.3) 70%,
-    rgba(13, 27, 42, 0.65) 100%
-  );
+@keyframes heroZoom {
+  0%   { transform: scale(1.05); }
+  100% { transform: scale(1.12); }
 }
 
 .hero__content {
   position: relative;
   z-index: 2;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 var(--space-md);
+  padding: 0 6vw 8vh;
+  max-width: 900px;
 }
 
-.hero__subtitle {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.35em;
+.hero__eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: var(--color-gold);
-  margin-bottom: var(--space-sm);
+  color: var(--c-gold);
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  &::before {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--c-gold);
+  }
 }
 
 .hero__title {
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
-  color: var(--color-white);
-  max-width: 800px;
-  margin-bottom: var(--space-md);
+  font-size: clamp(3rem, 8vw, 7rem);
+  color: var(--c-white);
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+
+  .hero__title-italic {
+    font-style: italic;
+    color: var(--c-gold);
+  }
+}
+
+.hero__desc {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 440px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
 }
 
 .hero__cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  padding: 0.85rem 2.2rem;
-  font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--color-white);
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50px;
-  cursor: pointer;
+  gap: 1rem;
   background: none;
-  transition: background var(--transition), border-color var(--transition);
+  border: none;
+  cursor: pointer;
+  font-family: var(--f-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--c-white);
+  padding: 0;
+  position: relative;
 
-  &:hover {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.7);
-  }
-}
-
-/* Bottom wave decoration */
-.hero__wave {
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-  z-index: 3;
-
-  svg {
+  .cta-line {
     display: block;
-    width: 100%;
-    height: auto;
+    width: 50px;
+    height: 1px;
+    background: var(--c-gold);
+    transition: width var(--duration-fast) var(--ease);
+  }
+
+  &:hover .cta-line {
+    width: 80px;
   }
 }
 
-/* Polynesian pattern strip */
-.hero__pattern {
+/* Vertical side text */
+.hero__side {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  z-index: 4;
-  background: repeating-linear-gradient(
-    90deg,
-    var(--color-gold) 0px,
-    var(--color-gold) 12px,
-    transparent 12px,
-    transparent 20px,
-    var(--color-accent) 20px,
-    var(--color-accent) 32px,
-    transparent 32px,
-    transparent 40px
-  );
+  right: 3.5rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center;
+  z-index: 3;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
 }
 
-/* Scroll indicator */
-.hero__scroll {
+/* Bottom scroll indicator */
+.hero__scroll-hint {
   position: absolute;
-  bottom: 3rem;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 4;
+  bottom: 2.5rem;
+  right: 3.5rem;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+}
+
+.hero__scroll-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  animation: dotBounce 2s var(--ease) infinite;
+}
+
+@keyframes dotBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50% { transform: translateY(12px); opacity: 0.3; }
 }
 
 .hero__scroll-line {
   width: 1px;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.6), transparent);
-  animation: scrollPulse 2s ease-in-out infinite;
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
 }
 
-@keyframes scrollPulse {
-  0%, 100% { opacity: 1; transform: scaleY(1); }
-  50% { opacity: 0.3; transform: scaleY(0.6); }
+/* ── Marquee ticker ──────────────────────────────────── */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 1.2rem 0;
+  background: var(--c-dark);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.marquee__track {
+  display: inline-flex;
+  animation: marqueeScroll 30s linear infinite;
+}
+
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 2rem;
+  font-family: var(--f-display);
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.35);
+
+  &::after {
+    content: '◆';
+    font-size: 0.5rem;
+    color: var(--c-gold);
+    font-style: normal;
+  }
+}
+
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 @media (max-width: 768px) {
-  .hero__scroll {
+  .hero {
+    min-height: 100svh;
+  }
+
+  .hero__content {
+    padding: 0 1.5rem 6vh;
+  }
+
+  .hero__side,
+  .hero__scroll-hint {
     display: none;
   }
 }

@@ -1,50 +1,59 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "../style/navbar.scss";
-import { Link } from "react-scroll";
+
+const scrollTo = (id) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+};
 
 const MainNavbar = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const [solid, setSolid] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setSolid(window.scrollY > 100);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const closeMobile = () => setMobileOpen(false);
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
 
-  const navItems = [
-    { to: "croisieres", label: "Croisières" },
-    { to: "bateau", label: "Le Bateau" },
-    { to: "tarifs", label: "Tarifs" },
+  const handleClick = useCallback((id) => {
+    setMobileOpen(false);
+    scrollTo(id);
+  }, []);
+
+  const items = [
+    { to: "cruises", label: "Croisières" },
+    { to: "boat", label: "Le Bateau" },
+    { to: "pricing", label: "Tarifs" },
     { to: "contact", label: "Contact" },
   ];
 
   return (
     <>
-      <header className={`navbar${scrolled ? " scrolled" : ""}`}>
-        <Link to="hero" smooth duration={600} className="navbar__logo">
-          Noumène<span>.</span>
-        </Link>
+      <header className={`nav${solid ? " nav--solid" : ""}`}>
+        <span className="nav__logo" onClick={() => scrollTo("hero")}>
+          Noumène<span className="nav__logo-dot">.</span>
+        </span>
 
-        <nav className="navbar__links">
-          {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              smooth
-              duration={600}
-              offset={-60}
-              className="navbar__link"
+        <nav className="nav__links">
+          {items.map((it) => (
+            <span
+              key={it.to}
+              className="nav__link"
+              onClick={() => handleClick(it.to)}
             >
-              {item.label}
-            </Link>
+              {it.label}
+            </span>
           ))}
         </nav>
 
         <button
-          className={`navbar__burger${mobileOpen ? " open" : ""}`}
+          className={`nav__burger${mobileOpen ? " open" : ""}`}
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Menu"
         >
@@ -54,20 +63,15 @@ const MainNavbar = () => {
         </button>
       </header>
 
-      {/* Mobile overlay menu */}
-      <div className={`navbar__mobile${mobileOpen ? " open" : ""}`}>
-        {navItems.map((item) => (
-          <Link
-            key={item.to}
-            to={item.to}
-            smooth
-            duration={600}
-            offset={-60}
-            className="navbar__mobile-link"
-            onClick={closeMobile}
+      <div className={`nav__overlay${mobileOpen ? " open" : ""}`}>
+        {items.map((it) => (
+          <span
+            key={it.to}
+            className="nav__overlay-link"
+            onClick={() => handleClick(it.to)}
           >
-            {item.label}
-          </Link>
+            {it.label}
+          </span>
         ))}
       </div>
     </>
