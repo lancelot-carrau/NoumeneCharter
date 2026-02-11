@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useReveal, useStaggerReveal } from "../hooks/useReveal";
-import { useRef, useCallback } from "react";
+import Lightbox from "../components/Lightbox";
 
 // Styles
 import "../style/hero.scss";
@@ -56,6 +56,13 @@ function HomePage() {
     const amount = 440;
     el.scrollBy({ left: dir * amount, behavior: "smooth" });
   }, []);
+
+  /* Lightbox state */
+  const [lbIndex, setLbIndex] = useState(-1);
+  const openLightbox = (i) => setLbIndex(i);
+  const closeLightbox = () => setLbIndex(-1);
+  const prevImage = () => setLbIndex((prev) => (prev - 1 + boatImages.length) % boatImages.length);
+  const nextImage = () => setLbIndex((prev) => (prev + 1) % boatImages.length);
 
   /* Reveal hooks */
   const [cruisesLeftRef, cruisesLeftVis] = useReveal(0.15);
@@ -181,7 +188,7 @@ function HomePage() {
         <div className="boat__gallery-wrap">
           <div className="boat__gallery" ref={galleryRef}>
             {boatImages.map((src, i) => (
-              <div className="boat__gallery-item" key={i}>
+              <div className="boat__gallery-item" key={i} onClick={() => openLightbox(i)} style={{ cursor: "pointer" }}>
                 <img src={src} alt={`Noumène ${i + 1}`} />
                 <span className="boat__gallery-num">0{i + 1}</span>
               </div>
@@ -288,6 +295,16 @@ function HomePage() {
           </a>
         </div>
       </section>
+
+      {lbIndex >= 0 && (
+        <Lightbox
+          images={boatImages}
+          index={lbIndex}
+          onClose={closeLightbox}
+          onPrev={prevImage}
+          onNext={nextImage}
+        />
+      )}
     </>
   );
 }
