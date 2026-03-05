@@ -36,6 +36,7 @@ import img7232518 from "../assets/images/_7232518.jpg";
 import img7232599 from "../assets/images/_7232599.jpg";
 import imageFlore from "../assets/images/imageFlore.jpg";
 import imageLagon from "../assets/images/imageLagon.jpg";
+import skipperPhoto from "../assets/images/picture-skipper.jpg";
 
 /* ── Data ──────────────────────────────────────────────── */
 const cruises = [
@@ -332,20 +333,11 @@ function HomePage() {
             <h2 className="skipper__title">Elohim</h2>
           </div>
           <div className="skipper__content">
+            <div className="skipper__photo">
+              <img src={skipperPhoto} alt="Elohim - Skipper" />
+            </div>
             <p className="skipper__text">
-              Salut à tous ! Je porte d'autres casquettes que celle du skipper : aventurier, photographe, scientifique dans l'âme et bricoleur invétéré. On me dit voyageur infatigable ; à vrai dire, il est fort possible que le monde ait fini par tourner un peu moins vite que moi.
-            </p>
-            <p className="skipper__text">
-              Mon carburant ? Un enthousiasme permanent et une énergie à revendre, le tout emballé dans un calme olympien. Que ce soit pour du grand reportage, des expéditions scientifiques ou des traversées sportives de la Méditerranée au Pacifique en passant par l'Atlantique, j'ai passé ma vie à régler des voiles et sourire à la vie.
-            </p>
-            <p className="skipper__text">
-              Après deux tours du monde à la voile et des miliers de milliers de miles, j'ai compris que tous les chemins mènent en Polynésie. Et, elle a fini par avoir raison de moi (pour l'instant !). C'est ici que j'ai posé mon sac, et cela fait maintenant plus de dix ans que je sillonne ce paradis sans jamais m'en lasser. Chaque matin ici ressemble à mon premier jour.
-            </p>
-            <p className="skipper__text">
-              Je me suis donné comme mission, de vous faire partager ce jardin d'Éden avec mon expérience de pro et ma passion de gamin. On ne se contente pas de flotter, on s'immerge.
-            </p>
-            <p className="skipper__text">
-              Je vous attend avec impatience.
+              Salut à tous ! Je porte d'autres casquettes que celle du skipper : aventurier, photographe, scientifique dans l'âme et bricoleur invétéré. On me dit voyageur infatigable ; à vrai dire, il est fort possible que le monde ait fini par tourner un peu moins vite que moi. Mon carburant ? Un enthousiasme permanent et une énergie à revendre, le tout emballé dans un calme olympien. Que ce soit pour du grand reportage, des expéditions scientifiques ou des traversées sportives de la Méditerranée au Pacifique en passant par l'Atlantique, j'ai passé ma vie à régler des voiles et sourire à la vie. Après deux tours du monde à la voile et des miliers de milliers de miles, j'ai compris que tous les chemins mènent en Polynésie. Et, elle a fini par avoir raison de moi (pour l'instant !). C'est ici que j'ai posé mon sac, et cela fait maintenant plus de dix ans que je sillonne ce paradis sans jamais m'en lasser. Chaque matin ici ressemble à mon premier jour. Je me suis donné comme mission, de vous faire partager ce jardin d'Éden avec mon expérience de pro et ma passion de gamin. On ne se contente pas de flotter, on s'immerge. Je vous attend avec impatience.
             </p>
           </div>
         </div>
