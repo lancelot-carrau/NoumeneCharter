@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import { useReveal, useStaggerReveal } from "../hooks/useReveal";
 import Lightbox from "../components/Lightbox";
 
@@ -17,17 +17,52 @@ import cockpit from "../assets/images/cockpit2.jpg";
 import cabine from "../assets/images/cabineDouble.jpg";
 import cabineDuo from "../assets/images/cabineDuo.jpg";
 import carte from "../assets/images/Map_Polynesia.png";
+import vueArriere from "../assets/images/vueArriere.jpg";
+import interieur from "../assets/images/interieur.jpg";
+import sunset from "../assets/images/sunset.jpg";
+import cockpitAlt from "../assets/images/cockpit.jpg";
+import img1 from "../assets/images/20211114_111118.jpg";
+import img2 from "../assets/images/20211210_103505.jpg";
+import img3 from "../assets/images/20211216_115559.jpg";
+import img4 from "../assets/images/20220203_173602.jpg";
+import img5 from "../assets/images/20220320_181004.jpg";
+import img6 from "../assets/images/20220320_181059.jpg";
+import img7 from "../assets/images/20220320_181149.jpg";
+import img8 from "../assets/images/20220320_181216.jpg";
+import imgEC from "../assets/images/EC-2203-3762.jpg";
+import img5668 from "../assets/images/IMG_5668.jpg";
+import img7192463 from "../assets/images/_7192463.jpg";
+import img7232518 from "../assets/images/_7232518.jpg";
+import img7232599 from "../assets/images/_7232599.jpg";
+import imageFlore from "../assets/images/imageFlore.jpg";
+import imageLagon from "../assets/images/imageLagon.jpg";
 
 /* ── Data ──────────────────────────────────────────────── */
 const cruises = [
-  { name: "Les Îles au Vent", islands: "Tahiti · Moorea" },
-  { name: "Les Îles sous le Vent", islands: "Huahine · Raiatea · Tahaa · Bora-Bora" },
-  { name: "Les Tuamotu", islands: "Rangiroa · Fakarava" },
-  { name: "Les Marquises", islands: "Nuku Hiva · Hiva Oa" },
+  { 
+    name: "Les Marquises", 
+    islands: "Nuku Hiva · Hiva Oa",
+    description: "Une nature puissante, envoûtante et luxuriante. Un peuple éprit de ses traditions ancestrales. Un voyage loin du monde et hors du temps."
+  },
+  { 
+    name: "Les Tuamotu", 
+    islands: "Rangiroa · Fakarava · Tikehau · Ahe",
+    description: "Là, vous y êtes. Les atols, le bleu turquoise des lagons, les poissons multicolores. Un pointillé de corail magique au milieu d'un Océan."
+  },
+  { 
+    name: "Les Îles de la Société", 
+    islands: "Tahiti · Moorea · Huahine · Raiatea · Tahaa · Bora-Bora · Maupiti",
+    description: "Tahiti, des baleines, des lagons, des montagnes. Toute la Polynésie en concentrée. L'incontournable Bora Bora."
+  },
+  { 
+    name: "À la carte", 
+    islands: "Votre itinéraire personnalisé",
+    description: "Des montagnes Marquisiennes, des fleurs de tiaré aux poissons multicolores des Tuamotu ; une explosion des sens pour un rêve éveillé."
+  },
 ];
 
 const features = [
-  { icon: "⛵", text: "4 grandes cabines doubles" },
+  { icon: "⛵", text: "4 grandes cabines doubles + 1 lit enfant" },
   { icon: "🚿", text: "4 salles de bains" },
   { icon: "🛋️", text: "1 canapé convertible" },
   { icon: "⚓", text: "2 cabines équipage" },
@@ -43,8 +78,31 @@ const pricing = [
   { period: "1 mois", price: "35 000 €" },
 ];
 
-const boatImages = [pont, famille, avant, cabine, cockpit, cabineDuo];
-const marqueeText = "Tahiti · Moorea · Bora-Bora · Raiatea · Huahine · Tahaa · Nuku Hiva · Hiva Oa · Rangiroa · Fakarava";
+const boatImages = [
+  pont, 
+  famille, 
+  avant, 
+  cabine, 
+  cockpit, 
+  cabineDuo,
+  vueArriere,
+  interieur,
+  sunset,
+  cockpitAlt,
+  img1,
+  img2,
+  img3,
+  img4,
+  img5,
+  img6,
+  img7,
+  img8,
+  imgEC,
+  img5668,
+  img7192463,
+  img7232518,
+  img7232599
+];
 
 /* ── Component ─────────────────────────────────────────── */
 function HomePage() {
@@ -64,11 +122,48 @@ function HomePage() {
   const prevImage = () => setLbIndex((prev) => (prev - 1 + boatImages.length) % boatImages.length);
   const nextImage = () => setLbIndex((prev) => (prev + 1) % boatImages.length);
 
+  /* Auto-scroll gallery */
+  useEffect(() => {
+    const gallery = galleryRef.current;
+    if (!gallery) return;
+    
+    let scrollPosition = 0;
+    const speed = 0.3; // pixels par frame (environ 18 pixels/seconde à 60fps)
+    let animationId;
+    
+    const scroll = () => {
+      if (!gallery) return;
+      
+      // La galerie contient 2x les images, donc on boucle à la moitié
+      const totalWidth = gallery.scrollWidth;
+      const halfWidth = totalWidth / 2;
+      
+      scrollPosition += speed;
+      
+      // Quand on atteint la fin de la première série, on revient au début instantanément
+      if (scrollPosition >= halfWidth) {
+        scrollPosition = 0;
+      }
+      
+      gallery.scrollLeft = scrollPosition;
+      animationId = requestAnimationFrame(scroll);
+    };
+    
+    animationId = requestAnimationFrame(scroll);
+    
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, []);
+
   /* Reveal hooks */
   const [cruisesLeftRef, cruisesLeftVis] = useReveal(0.15);
   const cruiseCards = useStaggerReveal(cruises.length, 150);
   const [boatHeaderRef, boatHeaderVis] = useReveal(0.15);
   const [boatInfoRef, boatInfoVis] = useReveal(0.1);
+  const [skipperRef, skipperVis] = useReveal(0.15);
   const [pricingRef, pricingVis] = useReveal(0.1);
   const pricingRows = useStaggerReveal(pricing.length, 100);
   const [contactRef, contactVis] = useReveal(0.15);
@@ -91,13 +186,9 @@ function HomePage() {
             <span className="hero__title-italic">Noumène</span>
           </h1>
           <p className="hero__desc">
-            Embarquez à bord d'un catamaran d'exception pour une croisière
+            Embarquez à bord d'un catamaran spacieux et hors-norme pour une croisière
             inoubliable au cœur des lagons polynésiens.
           </p>
-          <button className="hero__cta" onClick={() => document.getElementById('cruises')?.scrollIntoView({ behavior: 'smooth' })}>
-            <span className="cta-line" />
-            Découvrir
-          </button>
         </div>
 
         <span className="hero__side">Polynésie Française — 2025</span>
@@ -107,15 +198,6 @@ function HomePage() {
           <div className="hero__scroll-line" />
         </div>
       </section>
-
-      {/* ── Marquee ──────────────────────────────────── */}
-      <div className="marquee">
-        <div className="marquee__track">
-          {[...Array(4)].map((_, i) => (
-            <span className="marquee__item" key={i}>{marqueeText}</span>
-          ))}
-        </div>
-      </div>
 
       {/* ════════════════════════════════════════════════
           01 – CRUISES
@@ -145,6 +227,7 @@ function HomePage() {
                 <span className="cruise-card__num">0{i + 1}</span>
                 <h3 className="cruise-card__name">{c.name}</h3>
                 <p className="cruise-card__islands">{c.islands}</p>
+                <p className="cruise-card__description">{c.description}</p>
               </div>
             ))}
           </div>
@@ -187,20 +270,20 @@ function HomePage() {
         {/* Horizontal scroll gallery */}
         <div className="boat__gallery-wrap">
           <div className="boat__gallery" ref={galleryRef}>
+            {/* Première série d'images */}
             {boatImages.map((src, i) => (
-              <div className="boat__gallery-item" key={i} onClick={() => openLightbox(i)} style={{ cursor: "pointer" }}>
+              <div className="boat__gallery-item" key={`original-${i}`} onClick={() => openLightbox(i)} style={{ cursor: "pointer" }}>
                 <img src={src} alt={`Noumène ${i + 1}`} />
-                <span className="boat__gallery-num">0{i + 1}</span>
+                <span className="boat__gallery-num">{String(i + 1).padStart(2, '0')}</span>
               </div>
             ))}
-          </div>
-          <div className="boat__gallery-controls">
-            <button className="boat__arrow boat__arrow--left" onClick={() => scrollGallery(-1)} aria-label="Précédent">
-              ←
-            </button>
-            <button className="boat__arrow boat__arrow--right" onClick={() => scrollGallery(1)} aria-label="Suivant">
-              →
-            </button>
+            {/* Duplication pour boucle sans couture */}
+            {boatImages.map((src, i) => (
+              <div className="boat__gallery-item" key={`duplicate-${i}`} onClick={() => openLightbox(i)} style={{ cursor: "pointer" }}>
+                <img src={src} alt={`Noumène ${i + 1}`} />
+                <span className="boat__gallery-num">{String(i + 1).padStart(2, '0')}</span>
+              </div>
+            ))}
           </div>
           <div className="boat__gallery-hint">
             <span>← Glisser pour explorer →</span>
@@ -213,7 +296,7 @@ function HomePage() {
         >
           <p className="boat__desc">
             <em>Noumène</em> est le catamaran idéal pour explorer les lagons
-            paradisiaques de Polynésie — spacieux, confortable et sécurisant.
+            paradisiaques de Polynésie — un bateau spacieux, hors-norme, confortable et sécurisant.
           </p>
           <div className="boat__features">
             {features.map((f, i) => (
@@ -232,10 +315,47 @@ function HomePage() {
       </div>
 
       {/* ════════════════════════════════════════════════
-          03 – PRICING
+          03 – SKIPPER
+          ════════════════════════════════════════════════ */}
+      <section 
+        className={`skipper reveal${skipperVis ? " visible" : ""}`} 
+        id="skipper"
+        ref={skipperRef}
+      >
+        <span className="sec-num" style={{ color: "transparent", WebkitTextStroke: "1px rgba(0,100,100,0.15)" }}>
+          03
+        </span>
+
+        <div className="skipper__inner">
+          <div className="skipper__header">
+            <p className="skipper__label">Votre capitaine</p>
+            <h2 className="skipper__title">Elohim</h2>
+          </div>
+          <div className="skipper__content">
+            <p className="skipper__text">
+              Salut à tous ! Je porte d'autres casquettes que celle du skipper : aventurier, photographe, scientifique dans l'âme et bricoleur invétéré. On me dit voyageur infatigable ; à vrai dire, il est fort possible que le monde ait fini par tourner un peu moins vite que moi.
+            </p>
+            <p className="skipper__text">
+              Mon carburant ? Un enthousiasme permanent et une énergie à revendre, le tout emballé dans un calme olympien. Que ce soit pour du grand reportage, des expéditions scientifiques ou des traversées sportives de la Méditerranée au Pacifique en passant par l'Atlantique, j'ai passé ma vie à régler des voiles et sourire à la vie.
+            </p>
+            <p className="skipper__text">
+              Après deux tours du monde à la voile et des miliers de milliers de miles, j'ai compris que tous les chemins mènent en Polynésie. Et, elle a fini par avoir raison de moi (pour l'instant !). C'est ici que j'ai posé mon sac, et cela fait maintenant plus de dix ans que je sillonne ce paradis sans jamais m'en lasser. Chaque matin ici ressemble à mon premier jour.
+            </p>
+            <p className="skipper__text">
+              Je me suis donné comme mission, de vous faire partager ce jardin d'Éden avec mon expérience de pro et ma passion de gamin. On ne se contente pas de flotter, on s'immerge.
+            </p>
+            <p className="skipper__text">
+              Je vous attend avec impatience.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════
+          04 – PRICING
           ════════════════════════════════════════════════ */}
       <section className="pricing" id="pricing">
-        <span className="sec-num">03</span>
+        <span className="sec-num">04</span>
 
         <div
           className={`pricing__inner reveal${pricingVis ? " visible" : ""}`}
@@ -267,7 +387,7 @@ function HomePage() {
       </section>
 
       {/* ════════════════════════════════════════════════
-          04 – CONTACT
+          05 – CONTACT
           ════════════════════════════════════════════════ */}
       <section
         className={`contact reveal${contactVis ? " visible" : ""}`}
