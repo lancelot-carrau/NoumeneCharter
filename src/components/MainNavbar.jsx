@@ -29,6 +29,7 @@ const MainNavbar = () => {
   const items = [
     { to: "cruises", label: "Croisières" },
     { to: "boat", label: "Le Bateau" },
+    { to: "skipper", label: "Votre Capitaine" },
     { to: "pricing", label: "Tarifs" },
     { to: "contact", label: "Contact" },
   ];
