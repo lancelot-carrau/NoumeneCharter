@@ -42,7 +42,7 @@ import skipperPhoto from "../assets/images/picture-skipper.jpg";
 const cruises = [
   { 
     name: "Les Marquises", 
-    islands: "Nuku Hiva · Hiva Oa",
+    islands: "Nuku Hiva · Hiva Oa · Fatu Hiva . . .",
     description: "Une nature puissante, envoûtante et luxuriante. Un peuple éprit de ses traditions ancestrales. Un voyage loin du monde et hors du temps."
   },
   { 
@@ -58,7 +58,7 @@ const cruises = [
   { 
     name: "À la carte", 
     islands: "Votre itinéraire personnalisé",
-    description: "Des montagnes Marquisiennes, des fleurs de tiaré aux poissons multicolores des Tuamotu ; une explosion des sens pour un rêve éveillé."
+    description: "Je peux vous proposer des itinéraire d'une semaine ou de 3 mois ou faire vous même toutes les propositions. Ici, on prend le meilleur de ce que vous aimez. La plongée, le snorkeling, le trekking, la navigation, la culture, la farniente. Apres tout, c'est vos vacances !"
   },
 ];
 
@@ -73,10 +73,10 @@ const features = [
 
 const pricing = [
   { period: "1 semaine", price: "12 000 €" },
-  { period: "10 jours", price: "15 000 €" },
+  { period: "10 jours", price: "16 000 €" },
   { period: "2 semaines", price: "20 000 €" },
-  { period: "3 semaines", price: "28 000 €" },
-  { period: "1 mois", price: "35 000 €" },
+  { period: "3 semaines", price: "30 000 €" },
+  { period: "1 mois", price: "40 000 €" },
 ];
 
 const boatImages = [
@@ -187,7 +187,7 @@ function HomePage() {
             <span className="hero__title-italic">Noumène</span>
           </h1>
           <p className="hero__desc">
-            Embarquez à bord d'un catamaran spacieux et hors-norme pour une croisière
+            Embarquez à bord d'un catamaran spacieux à 2 ou à 10 pour une croisière
             inoubliable au cœur des lagons polynésiens.
           </p>
         </div>
@@ -264,7 +264,7 @@ function HomePage() {
           </div>
           <p className="boat__subtitle">
             18 m de long, 9 m de large — un catamaran spacieux, confortable
-            et sécurisant.
+            et sécurisant. Pour 2 ou 10 convives
           </p>
         </div>
 
@@ -359,7 +359,7 @@ function HomePage() {
               <h2 className="pricing__title">Tarifs</h2>
             </div>
             <p className="pricing__subtitle">
-              Tous nos tarifs incluent le skipper et l'hôtesse à bord.
+              Tous nos tarifs incluent le skipper , une hôtesse, le gasoil et la nourriture pour 4.
             </p>
           </div>
 
