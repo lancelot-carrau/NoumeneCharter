@@ -81,7 +81,6 @@ const pricing = [
 
 const boatImages = [
   pont, 
-  famille, 
   avant, 
   cabine, 
   cockpit, 
