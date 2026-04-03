@@ -8,8 +8,8 @@ import "../style/sections.scss";
 
 // Images
 import imageAccueil from "../assets/images/vueDrone.jpg";
-import imageBora from "../assets/images/Bora_cover.jpg";
-import imageSkyview from "../assets/images/Skyview_cover.png";
+import imageBora from "../assets/images/banner1.jpeg";
+import imageSkyview from "../assets/images/banner2.jpeg";
 import pont from "../assets/images/pont.jpg";
 import famille from "../assets/images/famille.jpg";
 import avant from "../assets/images/vueAvant.jpg";
@@ -37,13 +37,15 @@ import img7232599 from "../assets/images/img-7232599.jpg";
 import imageFlore from "../assets/images/imageFlore.jpg";
 import imageLagon from "../assets/images/imageLagon.jpg";
 import skipperPhoto from "../assets/images/picture-skipper.jpg";
+import whatsapp1 from "../assets/images/WhatsApp Image 2026-03-31 at 11.53.30 (2).jpeg";
+import whatsapp2 from "../assets/images/WhatsApp Image 2026-03-31 at 11.53.31.jpeg";
 
 /* ── Data ──────────────────────────────────────────────── */
 const cruises = [
   { 
     name: "Les Marquises", 
     islands: "Nuku Hiva · Hiva Oa · Fatu Hiva . . .",
-    description: "Une nature puissante, envoûtante et luxuriante. Un peuple éprit de ses traditions ancestrales. Un voyage loin du monde et hors du temps."
+    description: "Une nature puissante, envoûtante et luxuriante. Un peuple épris de ses traditions ancestrales. Un voyage loin du monde et hors du temps."
   },
   { 
     name: "Les Tuamotu", 
@@ -58,7 +60,7 @@ const cruises = [
   { 
     name: "À la carte", 
     islands: "Votre itinéraire personnalisé",
-    description: "Je peux vous proposer des itinéraire d'une semaine ou de 3 mois ou faire vous même toutes les propositions. Ici, on prend le meilleur de ce que vous aimez. La plongée, le snorkeling, le trekking, la navigation, la culture, la farniente. Apres tout, c'est vos vacances !"
+    description: "Créez votre voyage sur mesure, d'une semaine à trois mois. Composez l'itinéraire de vos rêves selon vos envies : plongée, snorkeling, randonnée, navigation, immersion culturelle ou farniente. Après tout, ce sont vos vacances !"
   },
 ];
 
@@ -101,7 +103,9 @@ const boatImages = [
   img5668,
   img7192463,
   img7232518,
-  img7232599
+  img7232599,
+  whatsapp1,
+  whatsapp2
 ];
 
 /* ── Component ─────────────────────────────────────────── */
@@ -336,7 +340,7 @@ function HomePage() {
               <img src={skipperPhoto} alt="Elohim - Skipper" />
             </div>
             <p className="skipper__text">
-              Salut à tous ! Je porte d'autres casquettes que celle du skipper : aventurier, photographe, scientifique dans l'âme et bricoleur invétéré. On me dit voyageur infatigable ; à vrai dire, il est fort possible que le monde ait fini par tourner un peu moins vite que moi. Mon carburant ? Un enthousiasme permanent et une énergie à revendre, le tout emballé dans un calme olympien. Que ce soit pour du grand reportage, des expéditions scientifiques ou des traversées sportives de la Méditerranée au Pacifique en passant par l'Atlantique, j'ai passé ma vie à régler des voiles et sourire à la vie. Après deux tours du monde à la voile et des miliers de milliers de miles, j'ai compris que tous les chemins mènent en Polynésie. Et, elle a fini par avoir raison de moi (pour l'instant !). C'est ici que j'ai posé mon sac, et cela fait maintenant plus de dix ans que je sillonne ce paradis sans jamais m'en lasser. Chaque matin ici ressemble à mon premier jour. Je me suis donné comme mission, de vous faire partager ce jardin d'Éden avec mon expérience de pro et ma passion de gamin. On ne se contente pas de flotter, on s'immerge. Je vous attend avec impatience.
+              Salut à tous ! Je porte d'autres casquettes que celle du skipper : aventurier, photographe, scientifique dans l'âme et bricoleur invétéré. On me dit voyageur infatigable ; à vrai dire, il est fort possible que le monde ait fini par tourner un peu moins vite que moi. Mon carburant ? Un enthousiasme permanent et une énergie à revendre, le tout emballé dans un calme olympien. Que ce soit pour du grand reportage, des expéditions scientifiques ou des traversées sportives de la Méditerranée au Pacifique en passant par l'Atlantique, j'ai passé ma vie à régler des voiles et sourire à la vie. Après deux tours du monde à la voile et des miliers de milliers de miles, j'ai compris que tous les chemins mènent en Polynésie. Et, elle a fini par avoir raison de moi (pour l'instant !). C'est ici que j'ai posé mon sac, et cela fait maintenant plus de dix ans que je sillonne ce paradis sans jamais m'en lasser. Chaque matin ici ressemble à mon premier jour. Je me suis donné comme mission de vous faire partager ce jardin d'Éden avec mon expérience de pro et ma passion de gamin. On ne se contente pas de flotter, on s'immerge. Je vous attends avec impatience.
             </p>
           </div>
         </div>
