@@ -31,11 +31,22 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
           ‹
         </button>
 
-        <img
-          className="lightbox__img"
-          src={images[index]}
-          alt={`Noumène ${index + 1}`}
-        />
+        {typeof images[index] === "object" ? (
+          <video
+            className="lightbox__img"
+            src={images[index].src}
+            poster={images[index].poster}
+            controls
+            autoPlay
+            playsInline
+          />
+        ) : (
+          <img
+            className="lightbox__img"
+            src={images[index]}
+            alt={`Noumène ${index + 1}`}
+          />
+        )}
 
         <button className="lightbox__nav lightbox__nav--next" onClick={onNext} aria-label="Suivant">
           ›

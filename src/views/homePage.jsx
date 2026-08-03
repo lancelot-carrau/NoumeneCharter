@@ -39,6 +39,14 @@ import imageLagon from "../assets/images/imageLagon.jpg";
 import skipperPhoto from "../assets/images/picture-skipper.jpg";
 import whatsapp1 from "../assets/images/WhatsApp Image 2026-03-31 at 11.53.30 (2).jpeg";
 import whatsapp2 from "../assets/images/WhatsApp Image 2026-03-31 at 11.53.31.jpeg";
+import galerie10716 from "../assets/images/galerie-10716.jpg";
+import galerie10823 from "../assets/images/galerie-10823.jpg";
+import galerie10881 from "../assets/images/galerie-10881.jpg";
+import galerie10897 from "../assets/images/galerie-10897.jpg";
+import galerie10987 from "../assets/images/galerie-10987.jpg";
+import galerie10991 from "../assets/images/galerie-10991.jpg";
+import galerie10819Poster from "../assets/images/galerie-10819-poster.jpg";
+import galerie10819Video from "../assets/videos/galerie-10819.mp4";
 
 /* ── Data ──────────────────────────────────────────────── */
 const cruises = [
@@ -105,13 +113,31 @@ const boatImages = [
   img7232518,
   img7232599,
   whatsapp1,
-  whatsapp2
+  whatsapp2,
+  galerie10716,
+  galerie10823,
+  galerie10881,
+  galerie10897,
+  galerie10987,
+  galerie10991,
+  { type: "video", src: galerie10819Video, poster: galerie10819Poster }
 ];
 
 /* ── Component ─────────────────────────────────────────── */
 function HomePage() {
   /* Gallery scroll arrows */
   const galleryRef = useRef(null);
+  const galleryLoopRef = useRef(null);
+
+  const renderGalleryMedia = (item, i) =>
+    typeof item === "object" ? (
+      <>
+        <video src={item.src} poster={item.poster} muted loop autoPlay playsInline />
+        <span className="boat__gallery-play">▶</span>
+      </>
+    ) : (
+      <img src={item} alt={`Noumène ${i + 1}`} />
+    );
   const scrollGallery = useCallback((dir) => {
     const el = galleryRef.current;
     if (!el) return;
@@ -129,32 +155,36 @@ function HomePage() {
   /* Auto-scroll gallery */
   useEffect(() => {
     const gallery = galleryRef.current;
-    if (!gallery) return;
-    
-    let scrollPosition = 0;
+    const loopMarker = galleryLoopRef.current;
+    if (!gallery || !loopMarker) return;
+
+    let scrollPosition = gallery.scrollLeft;
     const speed = 0.3; // pixels par frame (environ 18 pixels/seconde à 60fps)
     let animationId;
-    
+
     const scroll = () => {
-      if (!gallery) return;
-      
-      // La galerie contient 2x les images, donc on boucle à la moitié
-      const totalWidth = gallery.scrollWidth;
-      const halfWidth = totalWidth / 2;
-      
+      if (!gallery || !loopMarker) return;
+
+      // La deuxième série d'images commence exactement à cette position :
+      // on boucle là plutôt qu'à scrollWidth/2, car ce dernier ne tient pas
+      // compte de la largeur variable des cartes (responsive) et provoquait un saut visible.
+      const loopWidth = loopMarker.offsetLeft;
+
       scrollPosition += speed;
-      
-      // Quand on atteint la fin de la première série, on revient au début instantanément
-      if (scrollPosition >= halfWidth) {
-        scrollPosition = 0;
+
+      // Une fois la première série entièrement défilée, on revient au début :
+      // grâce au spacer dupliqué en tête de chaque série, la position 0 et
+      // la position loopWidth sont visuellement identiques → boucle sans couture.
+      if (scrollPosition >= loopWidth) {
+        scrollPosition -= loopWidth;
       }
-      
+
       gallery.scrollLeft = scrollPosition;
       animationId = requestAnimationFrame(scroll);
     };
-    
+
     animationId = requestAnimationFrame(scroll);
-    
+
     return () => {
       if (animationId) {
         cancelAnimationFrame(animationId);
@@ -275,19 +305,22 @@ function HomePage() {
         <div className="boat__gallery-wrap">
           <div className="boat__gallery" ref={galleryRef}>
             {/* Première série d'images */}
-            {boatImages.map((src, i) => (
+            <div className="boat__gallery-spacer" aria-hidden="true" />
+            {boatImages.map((item, i) => (
               <div className="boat__gallery-item" key={`original-${i}`} onClick={() => openLightbox(i)} style={{ cursor: "pointer" }}>
-                <img src={src} alt={`Noumène ${i + 1}`} />
+                {renderGalleryMedia(item, i)}
                 <span className="boat__gallery-num">{String(i + 1).padStart(2, '0')}</span>
               </div>
             ))}
-            {/* Duplication pour boucle sans couture */}
-            {boatImages.map((src, i) => (
+            {/* Duplication pour boucle sans couture — même spacer en tête que la 1ère série */}
+            <div className="boat__gallery-spacer" aria-hidden="true" ref={galleryLoopRef} />
+            {boatImages.map((item, i) => (
               <div className="boat__gallery-item" key={`duplicate-${i}`} onClick={() => openLightbox(i)} style={{ cursor: "pointer" }}>
-                <img src={src} alt={`Noumène ${i + 1}`} />
+                {renderGalleryMedia(item, i)}
                 <span className="boat__gallery-num">{String(i + 1).padStart(2, '0')}</span>
               </div>
             ))}
+            <div className="boat__gallery-spacer" aria-hidden="true" />
           </div>
           <div className="boat__gallery-hint">
             <span>← Glisser pour explorer →</span>

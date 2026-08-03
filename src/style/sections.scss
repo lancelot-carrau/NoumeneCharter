@@ -266,7 +266,6 @@
 .boat__gallery {
   display: flex;
   gap: 1rem;
-  padding: 0 6vw;
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: auto; /* Défilement fluide sans snap pour l'auto-scroll */
@@ -286,6 +285,13 @@
   }
 }
 
+/* Marque le début de chaque série dupliquée avec la même largeur que
+   l'ancien padding, pour que la boucle infinie soit visuellement identique
+   à chaque tour (sans quoi le retour au début "saute"). */
+.boat__gallery-spacer {
+  flex: 0 0 6vw;
+}
+
 .boat__gallery-item {
   flex: 0 0 auto;
   width: min(420px, 75vw);
@@ -294,14 +300,16 @@
   overflow: hidden;
   position: relative;
 
-  img {
+  img,
+  video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s var(--ease), filter 0.6s var(--ease);
   }
 
-  &:hover img {
+  &:hover img,
+  &:hover video {
     transform: scale(1.06);
     filter: brightness(1.1);
   }
@@ -313,6 +321,23 @@
     background: linear-gradient(to top, rgba(0, 0, 0, 0.35) 0%, transparent 50%);
     pointer-events: none;
   }
+}
+
+.boat__gallery-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  font-size: 1.4rem;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.25);
+  width: 56px;
+  height: 56px;
+  margin: auto;
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .boat__gallery-num {
