@@ -437,7 +437,7 @@ function HomePage() {
           <a href="tel:+33687847526" className="contact-card">
             <span className="contact-card__icon">☎</span>
             <div className="contact-card__text">
-              <span className="contact-card__label">Téléphone</span>
+              <span className="contact-card__label">WhatsApp</span>
               <span className="contact-card__value">+33 6 87 84 75 26</span>
             </div>
           </a>
