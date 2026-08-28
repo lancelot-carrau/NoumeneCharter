@@ -395,7 +395,7 @@ function HomePage() {
               <h2 className="pricing__title">Tarifs</h2>
             </div>
             <p className="pricing__subtitle">
-              Tous nos tarifs incluent le skipper , une hôtesse, le gasoil et la nourriture pour 4.
+              Tous nos tarifs incluent le marin , une hôtesse, le gasoil et la nourriture pour 4.
             </p>
           </div>
 
